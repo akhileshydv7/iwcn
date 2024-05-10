@@ -6,14 +6,17 @@ const Unci = () => {
     const [message, setMessage] = useState("Enter Phone Number")
     const [showModal, setShowModal] = useState(false);
     const handleButton = () => {
-        // const json = JSON.stringify({ phonenumber: 42 });
-        Axios.post('https://chimpu.xyz/api/post.php', { phonenumber: product })
-            .then(res => {
-                console.log(res)
-                setMessage(res.data.msg)
-            }).catch(err => {
-                console.log(err)
-            })
+
+        Axios.get('http://localhost:3000/unci', {
+            params: {
+                phonenumber: product
+            }
+        }).then(response => {
+            console.log("API response data:", response);
+            setMessage(response.data.message + "  " + response.data.data.phoneorigen)
+        }).catch(err => {
+            console.log(err);
+        });
         setShowModal(true)
     }
     return (
